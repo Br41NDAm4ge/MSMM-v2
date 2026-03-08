@@ -27,11 +27,11 @@
             <div class="form-grid">
                 <div class="form-section">
                     <h3>Identidade</h3>
-                    <input type="text" placeholder="Nome da Personagem" class="input-magic">
-                    <textarea placeholder="Descrição Básica (Aparência, idade, etc.)" class="input-magic"></textarea>
+                    <input type="text" name="nome" placeholder="Nome da Personagem" class="input-magic" required>
+                    <textarea name="descricao" placeholder="Descrição Básica (Aparência, idade, etc.)" class="input-magic"></textarea>
                     
                     <h3>Causa Mágica</h3>
-                    <textarea placeholder="Seu Objetivo como Garota Mágica" class="input-magic"></textarea>
+                    <textarea name="causa" placeholder="Seu Objetivo como Garota Mágica" class="input-magic"></textarea>
                 </div>
 
                 <div class="form-section">
@@ -39,24 +39,24 @@
                     <div class="attributes-grid">
                         <div class="attr-field">
                             <label>Físico</label>
-                            <input type="number" min="0" max="5" value="0">
+                            <input type="number" name="fisico" min="0" max="5" value="0">
                         </div>
                         <div class="attr-field">
                             <label>Emocional</label>
-                            <input type="number" min="0" max="5" value="0">
+                            <input type="number" name="emocional" min="0" max="5" value="0">
                         </div>
                         <div class="attr-field">
                             <label>Mental</label>
-                            <input type="number" min="0" max="5" value="0">
+                            <input type="number" name="mental" min="0" max="5" value="0">
                         </div>
                         <div class="attr-field">
                             <label>Persona</label>
-                            <input type="number" min="0" max="5" value="0">
+                            <input type="number" name="persona" min="0" max="5" value="0">
                         </div>
                     </div>
 
                     <h3>Essência do Poder</h3>
-                    <textarea placeholder="Descrição do Poder (Como ele se manifesta?)" class="input-magic" style="height: 150px;"></textarea>
+                    <textarea name="poder" placeholder="Descrição do Poder (Como ele se manifesta?)" class="input-magic" style="height: 150px;"></textarea>
                 </div>
             </div>
 

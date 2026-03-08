@@ -223,3 +223,63 @@ textarea.input-magic {
 @media (max-width: 800px) {
     .form-grid { grid-template-columns: 1fr; }
 }
+/* Container das Regras */
+.regras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+/* Card de Regra Individual */
+.regra-card {
+    background: rgba(45, 10, 61, 0.4);
+    border: 1px solid #ff69b4;
+    border-radius: 15px;
+    padding: 25px;
+    position: relative;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.regra-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+    background: rgba(60, 15, 80, 0.6);
+}
+
+/* Ícone/Número da Regra */
+.regra-icon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: linear-gradient(45deg, #2d0a3d, #ff69b4);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px #ff69b4;
+}
+
+.regra-card h3 {
+    color: #00ffff;
+    margin-top: 0;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    padding-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.regra-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+    word-wrap: break-word; /* Garante que o excesso de # não quebre o layout */
+}

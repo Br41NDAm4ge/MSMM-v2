@@ -3,85 +3,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('file-input');
     const status = document.getElementById('status');
 
-    // Click para abrir seletor de arquivo
     dropZone.addEventListener('click', () => fileInput.click());
 
     fileInput.addEventListener('change', (e) => {
-        if (fileInput.files.length) processarImagem(fileInput.files[0]);
+        if (e.target.files.length) processarFicha(e.target.files[0]);
     });
 
-    // Drag and Drop Effects
-    dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('drop-zone--over');
-    });
-
-    ['dragleave', 'dragend'].forEach(type => {
-        dropZone.addEventListener(type, () => dropZone.classList.remove('drop-zone--over'));
-    });
-
+    // Eventos de Drag and Drop
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drop-zone--over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drop-zone--over'));
     dropZone.addEventListener('drop', (e) => {
         e.preventDefault();
         dropZone.classList.remove('drop-zone--over');
-        if (e.dataTransfer.files.length) {
-            processarImagem(e.dataTransfer.files[0]);
-        }
+        if (e.dataTransfer.files.length) processarFicha(e.dataTransfer.files[0]);
     });
 
-    async function processarImagem(file) {
-        if (!file.type.includes('image')) {
-            status.innerHTML = "❌ Por favor, envie uma imagem PNG.";
-            return;
-        }
-
-        status.innerHTML = "✨ Decifrando pergaminho (Lendo imagem)...";
+    async function processarFicha(file) {
+        status.innerHTML = "✨ Lendo pergaminho antigo...";
         
         try {
-            // Inicializa o Tesseract (Língua Portuguesa)
-            const result = await Tesseract.recognize(file, 'por');
-            const textoLido = result.data.text;
-            
-            console.log("Texto detectado:", textoLido);
+            // Usando Tesseract para ler a imagem
+            const { data: { text } } = await Tesseract.recognize(file, 'por');
+            console.log("Texto extraído:", text);
 
-            // Extração de dados via Regex
             const dados = {
-                nome: extrairInfo(textoLido, ["Nome", "Personagem"]),
-                descricao: extrairInfo(textoLido, ["Descrição", "Identidade"]),
-                causa: extrairInfo(textoLido, ["Causa", "Objetivo"]),
-                fisico: extrairNumero(textoLido, "Físico"),
-                emocional: extrairNumero(textoLido, "Emocional"),
-                mental: extrairNumero(textoLido, "Mental"),
-                persona: extrairNumero(textoLido, "Persona"),
-                poder: extrairInfo(textoLido, ["Poder", "Essência"])
+                nome: extrairCampo(text, "Nome"),
+                descricao: extrairCampo(text, "Descrição"),
+                causa: extrairCampo(text, "Causa"),
+                fisico: extrairCampo(text, "Físico"),
+                emocional: extrairCampo(text, "Emocional"),
+                mental: extrairCampo(text, "Mental"),
+                persona: extrairCampo(text, "Persona"),
+                poder: extrairCampo(text, "Poder")
             };
 
-            // Salva para a página criar.html ler
+            // Salva e redireciona
             localStorage.setItem('ficha_importada', JSON.stringify(dados));
-            
-            status.innerHTML = "✅ Magia reconhecida! Redirecionando...";
-            setTimeout(() => {
-                window.location.href = 'criar.html';
-            }, 1500);
+            status.innerHTML = "✅ Ficha validada! Redirecionando...";
+            setTimeout(() => window.location.href = 'criar.html', 1000);
 
         } catch (error) {
-            console.error("Erro no OCR:", error);
-            status.innerHTML = "❌ Erro ao ler imagem. Tente uma foto mais clara.";
+            console.error(error);
+            status.innerHTML = "❌ Erro ao ler a imagem. Use o PNG original!";
         }
     }
 
-    // Funções auxiliares para limpar o texto lido
-    function extrairInfo(texto, chaves) {
-        for (let chave of chaves) {
-            const regex = new RegExp(`${chave}[:\\s]+([^\\n]+)`, 'i');
-            const match = texto.match(regex);
-            if (match) return match[1].trim();
-        }
-        return "";
-    }
-
-    function extrairNumero(texto, chave) {
-        const regex = new RegExp(`${chave}[:\\s]+(\\d+)`, 'i');
+    function extrairCampo(texto, campo) {
+        // Busca o campo e ignora maiúsculas/minúsculas
+        const regex = new RegExp(`${campo}:?\\s*(.*)`, 'i');
         const match = texto.match(regex);
-        return match ? match[1] : "0";
+        return match ? match[1].split('\n')[0].trim() : "";
     }
 });

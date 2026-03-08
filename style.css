@@ -110,3 +110,74 @@ footer {
     color: rgba(255, 255, 255, 0.3);
     z-index: 10;
 }
+/* ... (regras de Reset e Body permanecem iguais) ... */
+
+.menu-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide a tela em duas metades */
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    gap: 50px;
+    z-index: 10;
+    position: relative;
+}
+
+/* Ajustes da Coluna Esquerda */
+.content-left {
+    text-align: left; /* Alinha o texto para a esquerda */
+}
+
+.main-title-img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 20px #ff69b477);
+    animation: float 5s ease-in-out infinite;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.description-box {
+    margin: 20px 0;
+    text-align: left; /* Texto alinhado à esquerda na caixa */
+    /* ... (restante do estilo da caixa permanece igual) ... */
+}
+
+.menu-options {
+    justify-content: flex-start; /* Alinha os botões para a esquerda */
+}
+
+/* Ajustes da Coluna Direita (A Personagem) */
+.content-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-girl-img {
+    max-height: 80vh; /* Faz com que a menina ocupe boa parte da altura da tela */
+    width: auto;
+    filter: drop-shadow(0 0 30px #ff69b455);
+    animation: floatGirl 6s ease-in-out infinite;
+}
+
+/* Animação suave para a personagem */
+@keyframes floatGirl {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(1deg); }
+}
+
+/* Responsividade: No celular, volta a ficar um embaixo do outro */
+@media (max-width: 768px) {
+    .menu-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .content-left, .description-box, .menu-options {
+        text-align: center;
+        justify-content: center;
+    }
+    .main-girl-img {
+        max-height: 40vh;
+    }
+}

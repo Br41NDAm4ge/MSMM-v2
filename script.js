@@ -1,84 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const titleImg = document.getElementById('main-title');
+    const btnTitulo = document.getElementById('btn-titulo');
 
-    // 1. Evento de Clique: Explosão de Estrelas
-    if (titleImg) {
-        titleImg.addEventListener('click', (e) => {
-            createSupernova(e.clientX, e.clientY);
+    // 1. Evento de Clique para a Explosão Mágica
+    if (btnTitulo) {
+        btnTitulo.addEventListener('click', (e) => {
+            explosaoDeEstrelas(e.clientX, e.clientY);
         });
     }
 
-    // 2. Iniciar elementos de ambiente (partículas de fundo)
-    initBackground();
+    // 2. Partículas de fundo para dar vida ao menu
+    criarParticulasDeFundo();
 });
 
-function createSupernova(x, y) {
-    const starCount = 16; // Número de estrelas por explosão
-    const colors = ['rosa', 'roxo', 'amarelo'];
+function explosaoDeEstrelas(x, y) {
+    const totalEstrelas = 15; // Quantidade de estrelas na explosão
+    const cores = ['rosa', 'roxo', 'amarelo'];
 
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        const colorClass = colors[Math.floor(Math.random() * colors.length)];
-        star.className = `star-particle ${colorClass}`;
+    for (let i = 0; i < totalEstrelas; i++) {
+        const estrela = document.createElement('div');
+        const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
+        estrela.className = `star-click ${corAleatoria}`;
 
-        // Tamanho aleatório para cada estrela da explosão
-        const size = Math.random() * 15 + 8;
+        // Tamanho variado
+        const tamanho = Math.random() * 15 + 10;
         
-        // Ângulo e distância aleatórios para o efeito de expansão
-        const angle = Math.random() * Math.PI * 2; // 360 graus
-        const velocity = Math.random() * 140 + 60; // Distância que a estrela percorre
-        const tx = Math.cos(angle) * velocity + "px";
-        const ty = Math.sin(angle) * velocity + "px";
+        // Cálculo da direção da explosão (Círculo de 360 graus)
+        const angulo = Math.random() * Math.PI * 2;
+        const forca = Math.random() * 150 + 50; // Quão longe elas voam
+        const tx = Math.cos(angulo) * forca + "px";
+        const ty = Math.sin(angulo) * forca + "px";
 
-        Object.assign(star.style, {
-            left: `${x - size / 2}px`,
-            top: `${y - size / 2}px`,
-            width: `${size}px`,
-            height: `${size}px`,
+        // Aplicar estilos e coordenadas
+        Object.assign(estrela.style, {
+            left: `${x - tamanho / 2}px`,
+            top: `${y - tamanho / 2}px`,
+            width: `${tamanho}px`,
+            height: `${tamanho}px`,
             "--tx": tx,
             "--ty": ty
         });
 
-        document.body.appendChild(star);
+        document.body.appendChild(estrela);
 
-        // Remove o elemento após o fim da animação (800ms)
-        setTimeout(() => star.remove(), 800);
+        // Remover a estrela após a animação para não pesar o site
+        setTimeout(() => estrela.remove(), 800);
     }
 }
 
-function initBackground() {
+function criarParticulasDeFundo() {
     const body = document.body;
-    const particleLimit = 35;
-
-    for (let i = 0; i < particleLimit; i++) {
+    for (let i = 0; i < 30; i++) {
         const p = document.createElement('div');
-        const size = Math.random() * 3 + 1;
-        
-        Object.assign(p.style, {
-            position: 'absolute',
-            width: `${size}px`,
-            height: `${size}px`,
-            backgroundColor: '#ff69b4',
-            borderRadius: '50%',
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            opacity: '0.3',
-            pointerEvents: 'none',
-            zIndex: '1',
-            animation: `floatAmbient ${Math.random() * 15 + 10}s linear infinite`
-        });
-        
+        const s = Math.random() * 3 + 1;
+        p.style.cssText = `
+            position: absolute; width: ${s}px; height: ${s}px; 
+            background: #ff69b4; border-radius: 50%; opacity: 0.3;
+            left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;
+            pointer-events: none; z-index: 1;
+            animation: subir ${Math.random() * 10 + 10}s linear infinite;
+        `;
         body.appendChild(p);
     }
 }
 
-// Injeção da animação de subida das partículas de fundo
-const styleSheet = document.createElement("style");
-styleSheet.innerText = `
-    @keyframes floatAmbient {
-        0% { transform: translateY(100vh); opacity: 0; }
-        50% { opacity: 0.5; }
-        100% { transform: translateY(-10vh); opacity: 0; }
-    }
-`;
-document.head.appendChild(styleSheet);
+// Injeção da animação de fundo
+const style = document.createElement('style');
+style.innerText = `@keyframes subir { 
+    0% { transform: translateY(100vh); opacity: 0; } 
+    50% { opacity: 0.5; } 
+    100% { transform: translateY(-10vh); opacity: 0; } 
+}`;
+document.head.appendChild(style);

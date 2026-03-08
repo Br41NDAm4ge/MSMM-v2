@@ -1,4 +1,4 @@
-/* Configurações Gerais */
+/* --- Configurações de Base --- */
 * {
     margin: 0;
     padding: 0;
@@ -9,83 +9,100 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center;     /* Centraliza horizontalmente */
-    background-color: #0d020d; /* Fundo quase preto com toque de roxo */
-    background-image: radial-gradient(circle, #1a0a1a 0%, #0d020d 100%);
+    justify-content: center;
+    align-items: center;
+    background-color: #0d020d; /* Roxo Profundo */
+    background-image: radial-gradient(circle, #1a0a1a 0%, #080108 100%);
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
-    overflow: hidden; /* Evita barras de rolagem desnecessárias no menu */
+    overflow: hidden;
 }
 
-/* Container do Menu */
+/* --- Container Principal --- */
 .menu-container {
     text-align: center;
-    max-width: 800px;
-    padding: 20px;
+    max-width: 900px;
+    padding: 40px;
     z-index: 1;
 }
 
-/* Imagem de Título */
+/* --- Imagem de Título com Animação --- */
 .main-title-img {
     max-width: 100%;
     height: auto;
-    filter: drop-shadow(0 0 20px #ff00ff77);
-    animation: float 4s ease-in-out infinite; /* Efeito flutuante */
+    filter: drop-shadow(0 0 25px #ff69b477);
+    animation: float 5s ease-in-out infinite;
 }
 
-/* Descrição do Site */
-.description {
-    margin: 30px 0;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* --- CLASSE DESTAQUE: Descrição --- */
+.description-box {
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(255, 105, 180, 0.05); /* Rosa bem sutil */
+    border: 1px solid rgba(255, 105, 180, 0.3);
     border-radius: 15px;
-    border-left: 4px solid #ff69b4;
+    position: relative;
+    backdrop-filter: blur(10px); /* Efeito de vidro */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
+                inset 0 0 20px rgba(255, 105, 180, 0.1);
 }
 
-/* Navegação e Botões */
+/* Detalhe visual nas pontas da caixa */
+.description-box::before {
+    content: "✦";
+    color: #ff69b4;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d020d;
+    padding: 0 15px;
+    font-size: 1.2rem;
+}
+
+.description-box p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #fce4ec;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Botões de Navegação --- */
 .menu-options {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     justify-content: center;
-    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .btn-magic {
     text-decoration: none;
-    color: #fff;
+    color: #ff69b4;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 12px 25px;
+    padding: 15px 35px;
     border: 2px solid #ff69b4;
-    border-radius: 50px;
-    background: rgba(255, 105, 180, 0.1);
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+    border-radius: 8px; /* Estilo mais CRIS/Ordem */
+    background: transparent;
+    transition: all 0.4s ease;
 }
 
 .btn-magic:hover {
     background: #ff69b4;
     color: #000;
     box-shadow: 0 0 30px #ff69b4;
-    transform: scale(1.05);
+    transform: translateY(-5px);
 }
 
-/* Rodapé */
+/* --- Rodapé --- */
 footer {
     position: absolute;
     bottom: 20px;
-    font-size: 0.8rem;
-    opacity: 0.6;
-}
-
-/* Animação de Flutuar */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
 }

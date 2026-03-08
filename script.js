@@ -1,94 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Magic Ordem: Sistemas Prontos! ✨");
+    const titleImg = document.getElementById('main-title');
 
-    const titleImg = document.querySelector('.main-title-img');
-
-    // 1. Efeito de Estrelas Coloridas ao Clicar no Título
+    // 1. Evento de Clique: Explosão de Estrelas
     if (titleImg) {
         titleImg.addEventListener('click', (e) => {
-            // Cria 12 estrelinhas coloridas por clique
-            for (let i = 0; i < 12; i++) {
-                createClickStar(e.clientX, e.clientY);
-            }
+            createSupernova(e.clientX, e.clientY);
         });
     }
 
-    // 2. Iniciar partículas de fundo e estrelas automáticas no título
-    createGlobalParticles();
-    setInterval(createStarInTitle, 400);
-
-    // 3. Animação suave na entrada da descrição
-    const desc = document.querySelector('.description-box');
-    if (desc) {
-        desc.style.opacity = '0';
-        desc.style.transform = 'translateX(-20px)';
-        setTimeout(() => {
-            desc.style.transition = 'all 1s ease-out';
-            desc.style.opacity = '1';
-            desc.style.transform = 'translateX(0)';
-        }, 500);
-    }
+    // 2. Iniciar elementos de ambiente (partículas de fundo)
+    initBackground();
 });
 
-// --- Função: Estrelas de Explosão (Clique) ---
-function createClickStar(mouseX, mouseY) {
-    const star = document.createElement('div');
-    const cores = ['rosa', 'roxo', 'amarelo'];
-    const corSorteada = cores[Math.floor(Math.random() * cores.length)];
-    
-    star.className = `star-click ${corSorteada}`;
+function createSupernova(x, y) {
+    const starCount = 16; // Número de estrelas por explosão
+    const colors = ['rosa', 'roxo', 'amarelo'];
 
-    const size = Math.random() * 15 + 10;
-    const angle = Math.random() * Math.PI * 2;
-    const velocity = Math.random() * 120 + 60; // Força da explosão
-    const tx = Math.cos(angle) * velocity + "px";
-    const ty = Math.sin(angle) * velocity + "px";
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        const colorClass = colors[Math.floor(Math.random() * colors.length)];
+        star.className = `star-particle ${colorClass}`;
 
-    Object.assign(star.style, {
-        left: `${mouseX - size / 2}px`,
-        top: `${mouseY - size / 2}px`,
-        width: `${size}px`,
-        height: `${size}px`,
-        "--tx": tx,
-        "--ty": ty
-    });
+        // Tamanho aleatório para cada estrela da explosão
+        const size = Math.random() * 15 + 8;
+        
+        // Ângulo e distância aleatórios para o efeito de expansão
+        const angle = Math.random() * Math.PI * 2; // 360 graus
+        const velocity = Math.random() * 140 + 60; // Distância que a estrela percorre
+        const tx = Math.cos(angle) * velocity + "px";
+        const ty = Math.sin(angle) * velocity + "px";
 
-    document.body.appendChild(star);
-    setTimeout(() => star.remove(), 800);
+        Object.assign(star.style, {
+            left: `${x - size / 2}px`,
+            top: `${y - size / 2}px`,
+            width: `${size}px`,
+            height: `${size}px`,
+            "--tx": tx,
+            "--ty": ty
+        });
+
+        document.body.appendChild(star);
+
+        // Remove o elemento após o fim da animação (800ms)
+        setTimeout(() => star.remove(), 800);
+    }
 }
 
-// --- Função: Estrelas Automáticas (No Título) ---
-function createStarInTitle() {
-    const wrapper = document.querySelector('.title-wrapper');
-    if (!wrapper) return;
-
-    const star = document.createElement('div');
-    star.className = 'star rosa'; // Estrelas passivas são sempre rosas
-
-    const x = Math.random() * 100;
-    const y = Math.random() * 100;
-    const size = Math.random() * 10 + 5;
-
-    Object.assign(star.style, {
-        left: `${x}%`,
-        top: `${y}%`,
-        width: `${size}px`,
-        height: `${size}px`
-    });
-
-    wrapper.appendChild(star);
-    setTimeout(() => star.remove(), 1000);
-}
-
-// --- Função: Partículas de Fundo (Ambiente) ---
-function createGlobalParticles() {
+function initBackground() {
     const body = document.body;
-    for (let i = 0; i < 40; i++) {
+    const particleLimit = 35;
+
+    for (let i = 0; i < particleLimit; i++) {
         const p = document.createElement('div');
         const size = Math.random() * 3 + 1;
-        const duration = Math.random() * 15 + 10;
-        const delay = Math.random() * -20;
-
+        
         Object.assign(p.style, {
             position: 'absolute',
             width: `${size}px`,
@@ -98,20 +63,21 @@ function createGlobalParticles() {
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
             opacity: '0.3',
-            zIndex: '1',
             pointerEvents: 'none',
-            animation: `floatUp ${duration}s linear ${delay}s infinite`
+            zIndex: '1',
+            animation: `floatAmbient ${Math.random() * 15 + 10}s linear infinite`
         });
+        
         body.appendChild(p);
     }
 }
 
-// Injetando animação das partículas de fundo
+// Injeção da animação de subida das partículas de fundo
 const styleSheet = document.createElement("style");
 styleSheet.innerText = `
-    @keyframes floatUp {
-        0% { transform: translateY(110vh); opacity: 0; }
-        50% { opacity: 0.4; }
+    @keyframes floatAmbient {
+        0% { transform: translateY(100vh); opacity: 0; }
+        50% { opacity: 0.5; }
         100% { transform: translateY(-10vh); opacity: 0; }
     }
 `;

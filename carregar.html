@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregar Ficha | Magic Ordem</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .drop-zone {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 2px dashed #ff69b4;
+            border-radius: 20px;
+            background: rgba(45, 10, 61, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 100px auto 20px;
+        }
+        .drop-zone--over { border-style: solid; background: rgba(255, 105, 180, 0.1); }
+        .status-msg { margin-top: 20px; color: #00ffff; font-weight: 600; }
+    </style>
+</head>
+<body class="page-carregar">
+    <header class="top-bar">
+        <div class="nav-container">
+            <span class="nav-logo">✦ Magic Ordem</span>
+            <nav class="menu-options">
+                <a href="index.html" class="btn-nav">Início</a>
+                <a href="criar.html" class="btn-nav">Criar Ficha</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="menu-container" style="display: block; text-align: center;">
+        <h2 class="form-title">Restaurar Poder Antigo</h2>
+        <p>Arraste sua ficha (PNG) para que a magia faça a leitura.</p>
+
+        <div id="drop-zone" class="drop-zone">
+            <span class="drop-zone__prompt">Arraste a imagem aqui ou clique para selecionar</span>
+            <input type="file" name="myFile" id="file-input" style="display: none;" accept="image/png">
+        </div>
+        <div id="status" class="status-msg"></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+    <script src="carregar.js"></script>
+</body>
+</html>

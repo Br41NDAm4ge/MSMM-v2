@@ -1,82 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Magic Ordem: Iniciando sistemas mágicos...");
+    console.log("Magic Ordem: Sistemas Prontos!");
 
-    // 1. Iniciar partículas de fundo (Globais)
-    createGlobalParticles();
+    const titleImg = document.querySelector('.main-title-img');
 
-    // 2. Iniciar efeito de estrelinhas no Título
-    setInterval(createStarInTitle, 400);
-
-    // 3. Animação de entrada da descrição
-    const desc = document.querySelector('.description-box');
-    if (desc) {
-        desc.style.opacity = '0';
-        desc.style.transform = 'translateX(-20px)';
-        setTimeout(() => {
-            desc.style.transition = 'all 1s ease-out';
-            desc.style.opacity = '1';
-            desc.style.transform = 'translateX(0)';
-        }, 500);
+    // 1. Efeito de Estrelas ao Clicar no Título
+    if (titleImg) {
+        titleImg.style.cursor = "pointer"; // Indica que é clicável
+        titleImg.addEventListener('click', (e) => {
+            // Criamos 10 estrelinhas por clique
+            for (let i = 0; i < 10; i++) {
+                createClickStar(e.clientX, e.clientY);
+            }
+        });
     }
+
+    // 2. Iniciar partículas de fundo e estrelas automáticas do título
+    createGlobalParticles();
+    setInterval(createStarInTitle, 400);
 });
 
-// --- Estrelinhas do Título ---
+// --- Função para criar estrelas no clique do mouse ---
+function createClickStar(mouseX, mouseY) {
+    const star = document.createElement('div');
+    
+    // Sorteia a cor
+    const cores = ['rosa', 'roxo', 'amarelo'];
+    const corSorteada = cores[Math.floor(Math.random() * cores.length)];
+    
+    star.className = `star-click ${corSorteada}`;
+
+    // Define tamanho aleatório
+    const size = Math.random() * 15 + 10;
+    
+    // Define uma direção aleatória para a "explosão" usando variáveis CSS
+    const angle = Math.random() * Math.PI * 2;
+    const velocity = Math.random() * 100 + 50;
+    const tx = Math.cos(angle) * velocity + "px";
+    const ty = Math.sin(angle) * velocity + "px";
+
+    Object.assign(star.style, {
+        left: `${mouseX - size / 2}px`,
+        top: `${mouseY - size / 2}px`,
+        width: `${size}px`,
+        height: `${size}px`,
+        "--tx": tx,
+        "--ty": ty
+    });
+
+    document.body.appendChild(star);
+
+    // Remove após a animação
+    setTimeout(() => star.remove(), 800);
+}
+
+// --- (Funções anteriores permanecem iguais) ---
 function createStarInTitle() {
     const wrapper = document.querySelector('.title-wrapper');
     if (!wrapper) return;
-
     const star = document.createElement('div');
-    star.className = 'star';
-
+    star.className = 'star rosa'; // Estrelas automáticas continuam rosas
     const x = Math.random() * 100;
     const y = Math.random() * 100;
     const size = Math.random() * 12 + 6;
-
     Object.assign(star.style, {
-        left: `${x}%`,
-        top: `${y}%`,
-        width: `${size}px`,
-        height: `${size}px`,
-        boxShadow: '0 0 10px #ffffff'
+        left: `${x}%`, top: `${y}%`, width: `${size}px`, height: `${size}px`
     });
-
     wrapper.appendChild(star);
     setTimeout(() => star.remove(), 1000);
 }
 
-// --- Partículas Globais do Fundo ---
 function createGlobalParticles() {
     const body = document.body;
     for (let i = 0; i < 40; i++) {
         const p = document.createElement('div');
-        const size = Math.random() * 3 + 2;
-        const duration = Math.random() * 15 + 10;
-        const delay = Math.random() * -20;
-
         Object.assign(p.style, {
-            position: 'absolute',
-            width: `${size}px`,
-            height: `${size}px`,
-            backgroundColor: '#ff69b4',
-            borderRadius: '50%',
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            opacity: '0.4',
-            zIndex: '1',
-            pointerEvents: 'none',
-            animation: `floatUp ${duration}s linear ${delay}s infinite`
+            position: 'absolute', width: '3px', height: '3px', backgroundColor: '#ff69b4',
+            borderRadius: '50%', left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%`,
+            opacity: '0.4', zIndex: '1', pointerEvents: 'none',
+            animation: `floatUp ${Math.random() * 15 + 10}s linear infinite`
         });
         body.appendChild(p);
     }
 }
-
-// Injetando animação de subida das partículas
-const styleSheet = document.createElement("style");
-styleSheet.innerText = `
-    @keyframes floatUp {
-        0% { transform: translateY(100vh); opacity: 0; }
-        50% { opacity: 0.5; }
-        100% { transform: translateY(-10vh); opacity: 0; }
-    }
-`;
-document.head.appendChild(styleSheet);

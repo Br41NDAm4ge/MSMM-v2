@@ -141,3 +141,21 @@ footer {
     .menu-options { justify-content: center; }
     .main-girl-img { max-height: 40vh; }
 }
+/* Cores das estrelinhas de clique */
+.star.rosa { background-color: #ff69b4; box-shadow: 0 0 10px #ff69b4; }
+.star.roxo { background-color: #9370db; box-shadow: 0 0 10px #9370db; }
+.star.amarelo { background-color: #ffff00; box-shadow: 0 0 10px #ffff00; }
+
+/* Animação de explosão para o clique */
+@keyframes star-explosion {
+    0% { transform: translate(0, 0) scale(0); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 0; }
+}
+
+.star-click {
+    position: fixed; /* Usamos fixed para alinhar com o mouse na tela toda */
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    pointer-events: none;
+    z-index: 100;
+    animation: star-explosion 0.8s ease-out forwards;
+}

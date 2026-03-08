@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Ficha | Magic Ordem</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="page-criar">
+    <div id="particle-container"></div>
+
+    <header class="top-bar">
+        <div class="nav-container">
+            <span class="nav-logo">✦ Magic Ordem</span>
+            <nav class="menu-options">
+                <a href="index.html" class="btn-nav">Início</a>
+                <a href="regras.html" class="btn-nav">Regras</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="form-container">
+        <form id="ficha-form">
+            <h2 class="form-title">Nova Jornada Mágica</h2>
+
+            <div class="form-grid">
+                <div class="form-section">
+                    <h3>Identidade</h3>
+                    <input type="text" placeholder="Nome da Personagem" class="input-magic">
+                    <textarea placeholder="Descrição Básica (Aparência, idade, etc.)" class="input-magic"></textarea>
+                    
+                    <h3>Causa Mágica</h3>
+                    <textarea placeholder="Seu Objetivo como Garota Mágica" class="input-magic"></textarea>
+                </div>
+
+                <div class="form-section">
+                    <h3>Atributos</h3>
+                    <div class="attributes-grid">
+                        <div class="attr-field">
+                            <label>Físico</label>
+                            <input type="number" min="0" max="5" value="0">
+                        </div>
+                        <div class="attr-field">
+                            <label>Emocional</label>
+                            <input type="number" min="0" max="5" value="0">
+                        </div>
+                        <div class="attr-field">
+                            <label>Mental</label>
+                            <input type="number" min="0" max="5" value="0">
+                        </div>
+                        <div class="attr-field">
+                            <label>Persona</label>
+                            <input type="number" min="0" max="5" value="0">
+                        </div>
+                    </div>
+
+                    <h3>Essência do Poder</h3>
+                    <textarea placeholder="Descrição do Poder (Como ele se manifesta?)" class="input-magic" style="height: 150px;"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-magic-submit">Despertar Poder ✨</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -106,3 +106,53 @@ function criarEstrelaExplosao(x, y) {
 
     setTimeout(() => { estrela.remove(); }, 850);
 }
+
+if (fichaForm) {
+        fichaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(fichaForm);
+            const dadosFicha = Object.fromEntries(formData.entries());
+            const nomePersonagem = dadosFicha.nome || "Ficha_Magica";
+
+            // 1. Efeito visual de estrelas
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => criarEstrelaExplosao(centerX, centerY), i * 25);
+            }
+
+            // 2. Lógica do Print e Download
+            // Selecionamos o elemento do formulário para "fotografar"
+            const areaFicha = document.querySelector('#ficha-form');
+
+            // Ajuste temporário para o print sair bonito (sem brilhos cortados)
+            html2canvas(areaFicha, {
+                backgroundColor: "#1a0a1a", // Cor de fundo do print
+                scale: 2, // Aumenta a qualidade da imagem
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                // Cria um link invisível para download
+                const link = document.createElement('a');
+                link.download = `${nomePersonagem}.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
+
+            // 3. Salvar no LocalStorage (para consulta futura no site)
+            const fichasSalvas = JSON.parse(localStorage.getItem('fichas_magic_ordem') || '[]');
+            fichasSalvas.push(dadosFicha);
+            localStorage.setItem('fichas_magic_ordem', JSON.stringify(fichasSalvas));
+
+            // 4. Feedback no Botão
+            const btnSubmit = fichaForm.querySelector('.btn-magic-submit');
+            btnSubmit.innerHTML = "✨ FICHA BAIXADA! ✨";
+            
+            setTimeout(() => {
+                alert(`Poder Despertado! A ficha de ${nomePersonagem} foi salva e o download iniciado.`);
+                btnSubmit.innerHTML = "Despertar Poder ✨";
+                fichaForm.reset();
+            }, 1500);
+        });
+    }

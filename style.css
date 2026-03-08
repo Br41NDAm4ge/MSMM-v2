@@ -1,47 +1,91 @@
-/* Centralização Total com Flexbox */
-body {
+/* Configurações Gerais */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1a0a1a; /* Um roxo bem escuro, estilo Ordem */
-    color: white;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center;     /* Centraliza horizontalmente */
+    background-color: #0d020d; /* Fundo quase preto com toque de roxo */
+    background-image: radial-gradient(circle, #1a0a1a 0%, #0d020d 100%);
+    color: #ffffff;
     font-family: 'Poppins', sans-serif;
+    overflow: hidden; /* Evita barras de rolagem desnecessárias no menu */
 }
 
+/* Container do Menu */
 .menu-container {
     text-align: center;
-    max-width: 600px;
+    max-width: 800px;
+    padding: 20px;
+    z-index: 1;
 }
 
+/* Imagem de Título */
 .main-title-img {
     max-width: 100%;
     height: auto;
-    /* Adiciona um brilho mágico atrás da imagem */
-    filter: drop-shadow(0 0 15px #ff69b4); 
+    filter: drop-shadow(0 0 20px #ff00ff77);
+    animation: float 4s ease-in-out infinite; /* Efeito flutuante */
 }
 
+/* Descrição do Site */
 .description {
-    margin-top: 20px;
-    font-size: 1.2rem;
+    margin: 30px 0;
+    font-size: 1.1rem;
     line-height: 1.6;
+    color: #e0e0e0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 4px solid #ff69b4;
+}
+
+/* Navegação e Botões */
+.menu-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .btn-magic {
-    display: inline-block;
-    margin: 10px;
-    padding: 15px 30px;
-    border: 2px solid #ff69b4;
-    color: #ff69b4;
     text-decoration: none;
-    border-radius: 25px;
-    transition: 0.3s;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 25px;
+    border: 2px solid #ff69b4;
+    border-radius: 50px;
+    background: rgba(255, 105, 180, 0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
 }
 
 .btn-magic:hover {
     background: #ff69b4;
-    color: white;
-    box-shadow: 0 0 20px #ff69b4;
+    color: #000;
+    box-shadow: 0 0 30px #ff69b4;
+    transform: scale(1.05);
+}
+
+/* Rodapé */
+footer {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+/* Animação de Flutuar */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }

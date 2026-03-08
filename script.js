@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const btnTitulo = document.getElementById('btn-titulo');
 
-    // 1. Criar Partículas de Fundo Coloridas
-    const particleCount = 40;
+    // 1. Criar Partículas de Fundo (Rosa, Amarelo, Azul Claro)
+    const particleCount = 45;
     for (let i = 0; i < particleCount; i++) {
         criarParticulaFundo();
     }
 
-    // 2. Evento de Clique (Explosão)
+    // 2. Evento de Clique (Explosão de Estrelas)
     if (btnTitulo) {
         btnTitulo.addEventListener('click', (e) => {
             const x = e.clientX;
@@ -21,21 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function criarParticulaFundo() {
     const p = document.createElement('div');
-    const cores = ['rosa', 'amarelo', 'azul'];
+    const cores = ['rosa', 'amarelo', 'azul']; // Rosa, Amarelo e Azul Claro
     const corSorteada = cores[Math.floor(Math.random() * cores.length)];
     
     p.className = `bg-particle ${corSorteada}`;
     
-    const size = Math.random() * 4 + 1 + "px";
-    const duration = Math.random() * 10 + 10 + "s";
-    const delay = Math.random() * 10 + "s";
+    const size = Math.random() * 3 + 1 + "px";
+    const duration = Math.random() * 12 + 8 + "s";
+    const delay = Math.random() * 15 + "s";
 
     Object.assign(p.style, {
         width: size,
         height: size,
         left: Math.random() * 100 + "vw",
         top: Math.random() * 100 + "vh",
-        opacity: Math.random() * 0.4 + 0.1,
         animationDelay: "-" + delay
     });
     
@@ -45,13 +44,13 @@ function criarParticulaFundo() {
 
 function criarEstrelaExplosao(x, y) {
     const estrela = document.createElement('div');
-    const cores = ['rosa', 'amarelo', 'azul', 'roxo']; // Explosão ganha roxo também
+    const cores = ['rosa', 'amarelo', 'azul'];
     const cor = cores[Math.floor(Math.random() * cores.length)];
     
     estrela.className = `star-click ${cor}`;
 
     const angulo = Math.random() * Math.PI * 2;
-    const distancia = Math.random() * 180 + 50;
+    const distancia = Math.random() * 200 + 50;
     
     const destX = Math.cos(angulo) * distancia + "px";
     const destY = Math.sin(angulo) * distancia + "px";

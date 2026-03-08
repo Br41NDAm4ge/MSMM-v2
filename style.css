@@ -2,63 +2,80 @@
 
 body {
     width: 100%; height: 100vh;
-    display: flex; justify-content: center; align-items: center;
+    display: flex; flex-direction: column; /* Organiza em coluna para a Navbar ficar no topo */
+    justify-content: center; align-items: center;
     background: radial-gradient(circle, #1a0a1a 0%, #080108 100%);
     color: #ffffff; font-family: 'Poppins', sans-serif;
     overflow: hidden; position: relative;
 }
 
+/* --- Barra do Topo (Navbar) --- */
+.top-bar {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 70px;
+    background: linear-gradient(90deg, #2d0a3d 0%, #4a0e2e 100%); /* Roxo e Rosa Escuro */
+    border-bottom: 2px solid #ff69b4;
+    display: flex; align-items: center;
+    z-index: 100; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.nav-container {
+    width: 90%; max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.nav-logo { font-weight: 600; color: #ff69b4; text-shadow: 0 0 10px #ff69b4; font-size: 1.2rem; }
+
+.menu-options { display: flex; gap: 20px; }
+
+.btn-nav {
+    text-decoration: none; color: #ffffff; font-weight: 400;
+    padding: 8px 20px; border: 1px solid transparent;
+    border-radius: 5px; transition: 0.3s; font-size: 0.95rem;
+}
+
+.btn-nav:hover {
+    color: #ff69b4; border-color: #ff69b4;
+    background: rgba(255, 105, 180, 0.1);
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+}
+
+/* --- Layout Principal --- */
 .menu-container {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    display: grid; grid-template-columns: 1.4fr 1fr;
     width: 90%; max-width: 1200px; gap: 40px;
-    z-index: 10; position: relative;
+    z-index: 10; position: relative; margin-top: 70px; /* Compensa a altura da Navbar */
 }
 
 .main-title-img {
-    width: 100%; max-width: 600px;
+    width: 100%; max-width: 550px;
     filter: drop-shadow(0 0 15px #ff69b4aa);
-    animation: float 5s ease-in-out infinite;
-    cursor: pointer;
+    animation: float 5s ease-in-out infinite; cursor: pointer;
 }
 
 .description-box {
-    margin: 25px 0; padding: 25px;
-    background: rgba(255, 105, 180, 0.05);
-    border: 1px solid rgba(255, 105, 180, 0.3);
+    margin: 20px 0; padding: 25px;
+    background: rgba(255, 105, 180, 0.05); border: 1px solid rgba(255, 105, 180, 0.3);
     border-radius: 15px; backdrop-filter: blur(10px);
 }
 
-.description-box p { font-size: 1.2rem; line-height: 1.6; }
+.description-box p { font-size: 1.15rem; line-height: 1.5; color: #ffe4f0; }
 
-.menu-options { display: flex; gap: 15px; flex-wrap: wrap; }
+.main-girl-img { max-height: 80vh; animation: float 6s ease-in-out infinite; }
 
-.btn-magic {
-    text-decoration: none; color: #ff69b4; font-weight: 600;
-    padding: 12px 25px; border: 2px solid #ff69b4; border-radius: 5px;
-    background: rgba(0, 0, 0, 0.5); transition: 0.3s;
-}
-
-.btn-magic:hover { background: #ff69b4; color: #000; box-shadow: 0 0 20px #ff69b4; }
-
-.main-girl-img { max-height: 85vh; animation: float 6s ease-in-out infinite; }
-
-/* --- CLASSES DE CORES PARA PARTÍCULAS E ESTRELAS --- */
+/* --- Partículas e Estrelas --- */
 .rosa { background-color: #ff69b4; box-shadow: 0 0 8px #ff69b4; }
 .amarelo { background-color: #ffff00; box-shadow: 0 0 8px #ffff00; }
 .azul { background-color: #00ffff; box-shadow: 0 0 8px #00ffff; }
-.roxo { background-color: #9370db; box-shadow: 0 0 8px #9370db; }
 
-/* Estilo das Partículas de Fundo */
 .bg-particle {
     position: absolute; border-radius: 50%;
     pointer-events: none; z-index: 1;
     animation: moveUp var(--duration) linear infinite;
 }
 
-/* Estilo das Estrelas de Clique */
 .star-click {
-    position: fixed; pointer-events: none; z-index: 100;
+    position: fixed; pointer-events: none; z-index: 200;
     width: 20px; height: 20px;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     animation: star-explosion 0.8s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
@@ -77,4 +94,4 @@ body {
 
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-footer { position: absolute; bottom: 20px; font-size: 0.8rem; opacity: 0.4; }
+footer { position: absolute; bottom: 15px; font-size: 0.8rem; opacity: 0.4; }

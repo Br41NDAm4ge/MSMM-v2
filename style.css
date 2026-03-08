@@ -1,3 +1,4 @@
+/* --- Base --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -8,60 +9,91 @@ body {
     overflow: hidden; position: relative;
 }
 
+/* --- Layout Ajustado --- */
 .menu-container {
-    display: grid; grid-template-columns: 1.2fr 0.8fr;
-    width: 90%; max-width: 1200px; gap: 40px; z-index: 10;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Aumentado o espaço da esquerda */
+    align-items: center;
+    width: 95%;
+    max-width: 1300px;
+    gap: 60px;
+    z-index: 10;
 }
 
+/* --- Título e Legenda Maiores --- */
 .main-title-img {
-    max-width: 100%; filter: drop-shadow(0 0 15px #ff69b4aa);
-    animation: float 5s ease-in-out infinite; cursor: pointer;
+    width: 100%; /* Ocupa todo o espaço da coluna */
+    max-width: 600px; /* Mas não passa de 600px */
+    filter: drop-shadow(0 0 15px #ff69b4aa);
+    animation: float 5s ease-in-out infinite;
+    cursor: pointer;
 }
 
 .description-box {
-    margin: 25px 0; padding: 25px;
-    background: rgba(255, 105, 180, 0.05); border: 1px solid rgba(255, 105, 180, 0.3);
-    border-radius: 15px; backdrop-filter: blur(10px);
+    margin: 30px 0;
+    padding: 30px;
+    background: rgba(255, 105, 180, 0.07);
+    border: 1px solid rgba(255, 105, 180, 0.3);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.description-box p {
+    font-size: 1.25rem; /* Aumentado o tamanho da legenda */
+    line-height: 1.6;
+}
+
+/* --- Botões sem Sobreposição --- */
+.menu-options {
+    display: flex;
+    flex-wrap: wrap; /* Permite que caiam para a linha de baixo se faltar espaço */
+    gap: 20px;
 }
 
 .btn-magic {
-    text-decoration: none; color: #ff69b4; font-weight: 600;
-    padding: 12px 25px; border: 2px solid #ff69b4; border-radius: 5px;
-    margin-right: 10px; transition: 0.3s;
+    text-decoration: none;
+    color: #ff69b4;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    border: 2px solid #ff69b4;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    white-space: nowrap; /* Impede o texto do botão de quebrar linha */
 }
 
-.btn-magic:hover { background: #ff69b4; color: #000; box-shadow: 0 0 20px #ff69b4; }
+.btn-magic:hover {
+    background: #ff69b4;
+    color: #000;
+    box-shadow: 0 0 25px #ff69b4;
+    transform: translateY(-5px);
+}
 
-.main-girl-img { max-height: 85vh; animation: float 6s ease-in-out infinite; }
+.main-girl-img {
+    max-height: 90vh;
+    animation: float 6s ease-in-out infinite;
+}
 
-/* --- ESTRELAS DA EXPLOSÃO --- */
+/* --- ESTRELAS DA EXPLOSÃO (FIXED) --- */
 .star-click {
-    position: fixed; pointer-events: none; z-index: 100;
-    width: 20px; height: 20px; /* Tamanho base */
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    width: 20px; height: 20px;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    /* O segredo está aqui: ela começa no centro (0,0) e vai para o destino sorteado */
-    animation: star-explosion 0.8s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    animation: star-explosion 0.9s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
 }
 
-.rosa { background: #ff69b4; box-shadow: 0 0 10px #ff69b4; }
-.roxo { background: #9370db; box-shadow: 0 0 10px #9370db; }
-.amarelo { background: #ffff00; box-shadow: 0 0 10px #ffff00; }
+.rosa { background: #ff69b4; box-shadow: 0 0 15px #ff69b4; }
+.roxo { background: #9370db; box-shadow: 0 0 15px #9370db; }
+.amarelo { background: #ffff00; box-shadow: 0 0 15px #ffff00; }
 
 @keyframes star-explosion {
-    0% { 
-        transform: translate(0, 0) scale(0) rotate(0deg); 
-        opacity: 1; 
-    }
-    100% { 
-        /* Move a estrela para a posição calculada pelo JS */
-        transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(200deg); 
-        opacity: 0; 
-    }
+    0% { transform: translate(0, 0) scale(0); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(250deg); opacity: 0; }
 }
 
-@keyframes float { 
-    0%, 100% { transform: translateY(0); } 
-    50% { transform: translateY(-15px); } 
-}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-footer { position: absolute; bottom: 20px; font-size: 0.8rem; opacity: 0.3; }
+footer { position: absolute; bottom: 20px; opacity: 0.5; font-size: 0.9rem; }

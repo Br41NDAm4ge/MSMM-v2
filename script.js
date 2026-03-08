@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     const btnTitulo = document.getElementById('btn-titulo');
 
-    // 1. Criar partículas de fundo (Nevoa Mágica)
+    // 1. Criar Partículas de Fundo Coloridas
     const particleCount = 40;
     for (let i = 0; i < particleCount; i++) {
         criarParticulaFundo();
     }
 
-    // 2. Evento de Clique no Título
+    // 2. Evento de Clique (Explosão)
     if (btnTitulo) {
         btnTitulo.addEventListener('click', (e) => {
             const x = e.clientX;
             const y = e.clientY;
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 criarEstrelaExplosao(x, y);
             }
         });
@@ -21,28 +21,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function criarParticulaFundo() {
     const p = document.createElement('div');
-    p.className = 'bg-particle';
+    const cores = ['rosa', 'amarelo', 'azul'];
+    const corSorteada = cores[Math.floor(Math.random() * cores.length)];
+    
+    p.className = `bg-particle ${corSorteada}`;
+    
     const size = Math.random() * 4 + 1 + "px";
     const duration = Math.random() * 10 + 10 + "s";
+    const delay = Math.random() * 10 + "s";
+
+    Object.assign(p.style, {
+        width: size,
+        height: size,
+        left: Math.random() * 100 + "vw",
+        top: Math.random() * 100 + "vh",
+        opacity: Math.random() * 0.4 + 0.1,
+        animationDelay: "-" + delay
+    });
     
-    p.style.width = size;
-    p.style.height = size;
-    p.style.left = Math.random() * 100 + "vw";
-    p.style.setProperty('--d', duration);
-    p.style.top = Math.random() * 100 + "vh"; // Começam em pontos variados
-    
+    p.style.setProperty('--duration', duration);
     document.body.appendChild(p);
 }
 
 function criarEstrelaExplosao(x, y) {
     const estrela = document.createElement('div');
-    const cores = ['rosa', 'roxo', 'amarelo'];
-    estrela.className = `star-click ${cores[Math.floor(Math.random() * 3)]}`;
+    const cores = ['rosa', 'amarelo', 'azul', 'roxo']; // Explosão ganha roxo também
+    const cor = cores[Math.floor(Math.random() * cores.length)];
+    
+    estrela.className = `star-click ${cor}`;
 
     const angulo = Math.random() * Math.PI * 2;
-    const forca = Math.random() * 250 + 100;
-    const destX = Math.cos(angulo) * forca + "px";
-    const destY = Math.sin(angulo) * forca + "px";
+    const distancia = Math.random() * 180 + 50;
+    
+    const destX = Math.cos(angulo) * distancia + "px";
+    const destY = Math.sin(angulo) * distancia + "px";
 
     estrela.style.left = x + 'px';
     estrela.style.top = y + 'px';
@@ -50,5 +62,5 @@ function criarEstrelaExplosao(x, y) {
     estrela.style.setProperty('--ty', destY);
 
     document.body.appendChild(estrela);
-    setTimeout(() => estrela.remove(), 900);
+    setTimeout(() => estrela.remove(), 800);
 }

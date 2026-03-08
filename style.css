@@ -8,73 +8,73 @@ body {
     overflow: hidden; position: relative;
 }
 
-/* --- Layout Principal --- */
 .menu-container {
     display: grid;
-    grid-template-columns: 1.6fr 1fr; /* Mais espaço para o texto */
-    width: 95%; max-width: 1300px; gap: 40px;
+    grid-template-columns: 1.5fr 1fr;
+    width: 90%; max-width: 1200px; gap: 40px;
     z-index: 10; position: relative;
 }
 
-/* --- Título e Descrição --- */
 .main-title-img {
-    width: 100%; max-width: 700px;
+    width: 100%; max-width: 600px;
     filter: drop-shadow(0 0 15px #ff69b4aa);
     animation: float 5s ease-in-out infinite;
     cursor: pointer;
 }
 
 .description-box {
-    margin: 30px 0; padding: 35px;
-    background: rgba(255, 105, 180, 0.08);
+    margin: 25px 0; padding: 25px;
+    background: rgba(255, 105, 180, 0.05);
     border: 1px solid rgba(255, 105, 180, 0.3);
-    border-radius: 20px; backdrop-filter: blur(12px);
+    border-radius: 15px; backdrop-filter: blur(10px);
 }
 
-.description-box p { font-size: 1.3rem; line-height: 1.6; color: #ffe4f0; }
+.description-box p { font-size: 1.2rem; line-height: 1.6; }
 
-/* --- Botões --- */
-.menu-options { display: flex; gap: 20px; flex-wrap: wrap; }
+.menu-options { display: flex; gap: 15px; flex-wrap: wrap; }
+
 .btn-magic {
-    text-decoration: none; color: #ff69b4; font-weight: 600; font-size: 1.1rem;
-    padding: 15px 35px; border: 2px solid #ff69b4; border-radius: 8px;
-    background: rgba(0, 0, 0, 0.6); transition: 0.3s; white-space: nowrap;
+    text-decoration: none; color: #ff69b4; font-weight: 600;
+    padding: 12px 25px; border: 2px solid #ff69b4; border-radius: 5px;
+    background: rgba(0, 0, 0, 0.5); transition: 0.3s;
 }
-.btn-magic:hover { background: #ff69b4; color: #000; box-shadow: 0 0 25px #ff69b4; transform: translateY(-5px); }
 
-/* --- Personagem --- */
-.main-girl-img { max-height: 90vh; width: auto; animation: float 6s ease-in-out infinite; }
+.btn-magic:hover { background: #ff69b4; color: #000; box-shadow: 0 0 20px #ff69b4; }
 
-/* --- Partículas de Fundo --- */
+.main-girl-img { max-height: 85vh; animation: float 6s ease-in-out infinite; }
+
+/* --- CLASSES DE CORES PARA PARTÍCULAS E ESTRELAS --- */
+.rosa { background-color: #ff69b4; box-shadow: 0 0 8px #ff69b4; }
+.amarelo { background-color: #ffff00; box-shadow: 0 0 8px #ffff00; }
+.azul { background-color: #00ffff; box-shadow: 0 0 8px #00ffff; }
+.roxo { background-color: #9370db; box-shadow: 0 0 8px #9370db; }
+
+/* Estilo das Partículas de Fundo */
 .bg-particle {
-    position: absolute; border-radius: 50%; background: #ff69b4;
-    opacity: 0.2; pointer-events: none; z-index: 1;
-    animation: moveUp var(--d) linear infinite;
+    position: absolute; border-radius: 50%;
+    pointer-events: none; z-index: 1;
+    animation: moveUp var(--duration) linear infinite;
 }
 
-/* --- Explosão de Clique --- */
+/* Estilo das Estrelas de Clique */
 .star-click {
-    position: fixed; pointer-events: none; z-index: 999;
-    width: 25px; height: 25px;
+    position: fixed; pointer-events: none; z-index: 100;
+    width: 20px; height: 20px;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    animation: star-explosion 0.9s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    animation: star-explosion 0.8s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
 }
-
-.rosa { background: #ff69b4; box-shadow: 0 0 15px #ff69b4; }
-.roxo { background: #9370db; box-shadow: 0 0 15px #9370db; }
-.amarelo { background: #ffff00; box-shadow: 0 0 15px #ffff00; }
 
 @keyframes star-explosion {
     0% { transform: translate(0, 0) scale(0); opacity: 1; }
-    100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(250deg); opacity: 0; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(200deg); opacity: 0; }
 }
 
 @keyframes moveUp {
     0% { transform: translateY(110vh); opacity: 0; }
-    50% { opacity: 0.3; }
+    50% { opacity: 0.4; }
     100% { transform: translateY(-10vh); opacity: 0; }
 }
 
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-footer { position: absolute; bottom: 20px; opacity: 0.5; z-index: 10; }
+footer { position: absolute; bottom: 20px; font-size: 0.8rem; opacity: 0.4; }

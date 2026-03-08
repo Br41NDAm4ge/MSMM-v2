@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Magic Ordem: Sistemas Prontos!");
+    console.log("Magic Ordem: Sistemas Prontos! ✨");
 
     const titleImg = document.querySelector('.main-title-img');
 

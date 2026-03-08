@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const x = e.clientX;
             const y = e.clientY;
 
-            // Criar 20 estrelas para uma explosão volumosa
-            for (let i = 0; i < 20; i++) {
+            // Criar 7 estrelas para uma explosão volumosa
+            for (let i = 0; i < 7; i++) {
                 criarEstrela(x, y);
             }
         });

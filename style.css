@@ -1,0 +1,47 @@
+/* Centralização Total com Flexbox */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a0a1a; /* Um roxo bem escuro, estilo Ordem */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.menu-container {
+    text-align: center;
+    max-width: 600px;
+}
+
+.main-title-img {
+    max-width: 100%;
+    height: auto;
+    /* Adiciona um brilho mágico atrás da imagem */
+    filter: drop-shadow(0 0 15px #ff69b4); 
+}
+
+.description {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.btn-magic {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 30px;
+    border: 2px solid #ff69b4;
+    color: #ff69b4;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.btn-magic:hover {
+    background: #ff69b4;
+    color: white;
+    box-shadow: 0 0 20px #ff69b4;
+}

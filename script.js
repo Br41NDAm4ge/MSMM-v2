@@ -108,51 +108,53 @@ function criarEstrelaExplosao(x, y) {
 }
 
 if (fichaForm) {
-        fichaForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+    fichaForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-            const formData = new FormData(fichaForm);
-            const dadosFicha = Object.fromEntries(formData.entries());
-            const nomePersonagem = dadosFicha.nome || "Ficha_Magica";
+        const formData = new FormData(fichaForm);
+        const dadosFicha = Object.fromEntries(formData.entries());
+        const nomePersonagem = dadosFicha.nome || "Ficha_Magica";
 
-            // 1. Efeito visual de estrelas
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => criarEstrelaExplosao(centerX, centerY), i * 25);
+        // Feedback visual imediato
+        const btnSubmit = fichaForm.querySelector('.btn-magic-submit');
+        btnSubmit.innerHTML = "✨ Gerando Imagem... ✨";
+        btnSubmit.disabled = true; // Evita múltiplos cliques
+
+        const areaFicha = document.querySelector('#ficha-form');
+
+        // Configurações otimizadas para Web/Vercel
+        html2canvas(areaFicha, {
+            backgroundColor: "#1a0a1a",
+            scale: 2,
+            useCORS: true,      // Ajuda a carregar fontes/imagens externas
+            allowTaint: true,   // Permite capturar elementos "sujos" por domínios diferentes
+            logging: false
+        }).then(canvas => {
+            try {
+                const imgData = canvas.toDataURL("image/png");
+                const link = document.createElement('a');
+                
+                // Força o download no navegador
+                link.setAttribute('download', `${nomePersonagem}.png`);
+                link.setAttribute('href', imgData);
+                document.body.appendChild(link); // Necessário para alguns navegadores
+                link.click();
+                document.body.removeChild(link);
+
+                // Sucesso
+                btnSubmit.innerHTML = "✨ FICHA BAIXADA! ✨";
+            } catch (err) {
+                console.error("Erro ao gerar imagem:", err);
+                alert("Houve um erro ao gerar a imagem. Tente novamente.");
+                btnSubmit.innerHTML = "Tentar Novamente";
             }
 
-            // 2. Lógica do Print e Download
-            // Selecionamos o elemento do formulário para "fotografar"
-            const areaFicha = document.querySelector('#ficha-form');
-
-            // Ajuste temporário para o print sair bonito (sem brilhos cortados)
-            html2canvas(areaFicha, {
-                backgroundColor: "#1a0a1a", // Cor de fundo do print
-                scale: 2, // Aumenta a qualidade da imagem
-                logging: false,
-                useCORS: true
-            }).then(canvas => {
-                // Cria um link invisível para download
-                const link = document.createElement('a');
-                link.download = `${nomePersonagem}.png`;
-                link.href = canvas.toDataURL("image/png");
-                link.click();
-            });
-
-            // 3. Salvar no LocalStorage (para consulta futura no site)
-            const fichasSalvas = JSON.parse(localStorage.getItem('fichas_magic_ordem') || '[]');
-            fichasSalvas.push(dadosFicha);
-            localStorage.setItem('fichas_magic_ordem', JSON.stringify(fichasSalvas));
-
-            // 4. Feedback no Botão
-            const btnSubmit = fichaForm.querySelector('.btn-magic-submit');
-            btnSubmit.innerHTML = "✨ FICHA BAIXADA! ✨";
-            
+            // Salvar no LocalStorage e Resetar
             setTimeout(() => {
-                alert(`Poder Despertado! A ficha de ${nomePersonagem} foi salva e o download iniciado.`);
                 btnSubmit.innerHTML = "Despertar Poder ✨";
+                btnSubmit.disabled = false;
                 fichaForm.reset();
-            }, 1500);
+            }, 3000);
         });
-    }
+    });
+}

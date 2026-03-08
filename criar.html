@@ -16,6 +16,7 @@
             <nav class="menu-options">
                 <a href="index.html" class="btn-nav">Início</a>
                 <a href="regras.html" class="btn-nav">Regras</a>
+                <a href="carregar.html" class="btn-nav">Carregar</a>
             </nav>
         </div>
     </header>
@@ -27,36 +28,41 @@
             <div class="form-grid">
                 <div class="form-section">
                     <h3>Identidade</h3>
+                    <label>Nome:</label>
                     <input type="text" name="nome" placeholder="Nome da Personagem" class="input-magic" required>
-                    <textarea name="descricao" placeholder="Descrição Básica (Aparência, idade, etc.)" class="input-magic"></textarea>
+                    
+                    <label>Descrição:</label>
+                    <textarea name="descricao" placeholder="Aparência, idade e origem..." class="input-magic"></textarea>
                     
                     <h3>Causa Mágica</h3>
-                    <textarea name="causa" placeholder="Seu Objetivo como Garota Mágica" class="input-magic"></textarea>
+                    <label>Causa:</label>
+                    <textarea name="causa" placeholder="Seu objetivo maior..." class="input-magic"></textarea>
                 </div>
 
                 <div class="form-section">
                     <h3>Atributos</h3>
                     <div class="attributes-grid">
                         <div class="attr-field">
-                            <label>Físico</label>
+                            <label>Físico:</label>
                             <input type="number" name="fisico" min="0" max="5" value="0">
                         </div>
                         <div class="attr-field">
-                            <label>Emocional</label>
+                            <label>Emocional:</label>
                             <input type="number" name="emocional" min="0" max="5" value="0">
                         </div>
                         <div class="attr-field">
-                            <label>Mental</label>
+                            <label>Mental:</label>
                             <input type="number" name="mental" min="0" max="5" value="0">
                         </div>
                         <div class="attr-field">
-                            <label>Persona</label>
+                            <label>Persona:</label>
                             <input type="number" name="persona" min="0" max="5" value="0">
                         </div>
                     </div>
 
                     <h3>Essência do Poder</h3>
-                    <textarea name="poder" placeholder="Descrição do Poder (Como ele se manifesta?)" class="input-magic" style="height: 150px;"></textarea>
+                    <label>Poder:</label>
+                    <textarea name="poder" placeholder="Como sua magia se manifesta?" class="input-magic" style="height: 150px;"></textarea>
                 </div>
             </div>
 
@@ -66,7 +72,8 @@
         </form>
     </main>
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <script src="script.js"></script>
 </body>
+</html>
